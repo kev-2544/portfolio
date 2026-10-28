@@ -31,10 +31,10 @@
 // =============================================================================
 
 window.PROJECT_CATEGORIES = {
-  backend: 'Backend',
-  data: 'Analytics engineering',
+  fullstack: 'Full-stack & web',
+  backend: 'Backend & APIs',
+  data: 'Data & analytics',
   go: 'Go',
-  frontend: 'Frontend',
 };
 
 const GH = 'https://github.com/Manoty/';
@@ -72,6 +72,29 @@ window.PROJECTS = [
     // screenshots: [
     //   { src: 'images/paysync/01-api.webp', alt: 'Describe the image', caption: 'Short caption' },
     // ],
+  },
+  {
+    id: 'portfolio-platform',
+    title: 'Portfolio Platform',
+    subtitle: 'Full-stack CMS · Django + React',
+    category: 'fullstack',
+    featured: true,
+    date: '2026-06',
+    summary:
+      'A full-stack portfolio CMS: a Django REST API with JWT auth and an admin dashboard, plus a React and TypeScript frontend built with Vite.',
+    description: [
+      'A self-hosted portfolio platform with a public site and a private admin area. The Django backend is split into apps for accounts, portfolio projects, blog, resume, contact messages, testimonials, site settings and page-view analytics. The React frontend renders the public pages and an admin dashboard for managing all of that content.',
+    ],
+    stack: ['Python', 'Django', 'Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Docker'],
+    repo: GH + 'Portfolio-platform',
+    implementation: [
+      'Django REST Framework API with JWT authentication (Simple JWT) and CORS configuration',
+      'Separate Django apps for accounts, portfolio, blog, resume, contact, testimonials, settings and analytics',
+      'GitHub import: a service that pulls repositories from the GitHub API into portfolio projects',
+      'React + TypeScript frontend with React Router, Zustand state, Axios and Tailwind CSS',
+      'Rich-text blog editor (Tiptap) and analytics charts (Recharts) in the admin dashboard',
+      'pytest + factory_boy tests; Docker Compose and Render deployment configuration',
+    ],
   },
   {
     id: 'speech-to-text',
@@ -135,7 +158,6 @@ window.PROJECTS = [
     title: 'Flagr',
     subtitle: 'Feature flag & experimentation API',
     category: 'backend',
-    featured: true,
     date: '2026-05',
     summary:
       'A self-hosted take on LaunchDarkly / Unleash: feature toggles, gradual percentage rollouts and A/B experiments.',
@@ -286,7 +308,7 @@ window.PROJECTS = [
     id: 'tixora',
     title: 'Tixora',
     subtitle: 'Event ticketing platform',
-    category: 'backend',
+    category: 'fullstack',
     date: '2026-04',
     summary:
       'Full-stack event ticketing and entry management: event creation, ticket sales, QR-based check-in and payment flows.',
@@ -296,7 +318,7 @@ window.PROJECTS = [
   {
     id: 'notiflow',
     title: 'Notiflow',
-    category: 'backend',
+    category: 'fullstack',
     date: '2026-04',
     summary:
       'Notification service with a Django backend, client integrations for Tixora and Scott, and a separate dashboard frontend.',
@@ -345,7 +367,7 @@ window.PROJECTS = [
   {
     id: 'bugzero',
     title: 'Bug Zero',
-    category: 'frontend',
+    category: 'fullstack',
     date: '2026-05',
     summary:
       'Booking platform for a pest-control business, with a quote calculator priced by property size, pest type and urgency.',
@@ -355,7 +377,7 @@ window.PROJECTS = [
   {
     id: 'pharmacy-erp',
     title: 'Pharmacy ERP Frontend',
-    category: 'frontend',
+    category: 'fullstack',
     date: '2025-08',
     summary: 'React frontend for a pharmacy ERP, deployed on Vercel and connected to a separate Python backend API.',
     stack: ['React', 'JavaScript', 'Vercel'],

@@ -160,22 +160,39 @@ code { font-family: var(--mono); font-size: 0.92em; }
   object-fit: cover; object-position: top center;
   transition: transform .5s var(--ease);
 }
+/* Generated cover art (main.js -> thumbPlaceholder). --art is the category hue. */
 .thumb-placeholder {
-  position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 4px;
-  padding: 18px 20px;
+  --art: var(--accent);
+  position: absolute; inset: 0;
   background:
-    radial-gradient(120% 90% at 100% 0%, var(--accent-soft), transparent 60%),
-    repeating-linear-gradient(0deg, transparent 0 23px, color-mix(in srgb, var(--border) 60%, transparent) 23px 24px),
-    repeating-linear-gradient(90deg, transparent 0 23px, color-mix(in srgb, var(--border) 60%, transparent) 23px 24px),
+    radial-gradient(80% 120% at 85% 10%, color-mix(in srgb, var(--art) 22%, transparent), transparent 65%),
+    radial-gradient(60% 90% at 0% 100%, color-mix(in srgb, var(--art) 10%, transparent), transparent 70%),
+    repeating-linear-gradient(0deg, transparent 0 23px, color-mix(in srgb, var(--border) 55%, transparent) 23px 24px),
+    repeating-linear-gradient(90deg, transparent 0 23px, color-mix(in srgb, var(--border) 55%, transparent) 23px 24px),
     var(--surface-2);
 }
-.thumb-placeholder span { font: 600 11.5px var(--mono); color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
-.thumb-placeholder strong {
-  font: 600 14px/1.35 var(--mono); color: var(--text); letter-spacing: -0.01em;
-  overflow-wrap: anywhere;
+.art { position: absolute; inset: 0; width: 100%; height: 100%; }
+.art text { font: 600 12px var(--mono); fill: var(--text); }
+.art .a-big { font-size: 15px; fill: var(--art); }
+.a-node { fill: color-mix(in srgb, var(--surface) 88%, var(--art)); stroke: color-mix(in srgb, var(--art) 45%, var(--border)); stroke-width: 1.2; }
+.a-node.a-strong { fill: color-mix(in srgb, var(--art) 22%, var(--surface)); stroke: var(--art); }
+.a-link { fill: none; stroke: color-mix(in srgb, var(--art) 60%, transparent); stroke-width: 1.4; stroke-dasharray: 4 4; }
+.a-dot { fill: var(--art); }
+.a-bar { fill: color-mix(in srgb, var(--art) 30%, var(--surface)); }
+.a-bar.a-strong { fill: var(--art); }
+.a-line { fill: none; stroke: var(--art); stroke-width: 2; stroke-linejoin: round; }
+.a-axis { stroke: var(--border-strong); stroke-width: 1; }
+.art-label {
+  position: absolute; top: 12px; left: 14px;
+  font: 600 10.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--art);
+  background: color-mix(in srgb, var(--bg) 70%, transparent); padding: 3px 8px; border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--art) 35%, transparent);
 }
-.thumb-placeholder strong::before { content: '~/'; color: var(--faint); }
-.thumb-placeholder code { font-size: 12px; color: var(--faint); }
+.art-repo {
+  position: absolute; left: 14px; right: 14px; bottom: 10px;
+  font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.art-repo::before { content: '~/'; color: var(--faint); }
 
 /* ---------------------------------------------------------------- featured */
 .featured { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }

@@ -81,7 +81,8 @@ else {
 
 // ---------------------------------------------------------------- profile
 if (!PROFILE.github) err('profile.js: github is required');
-if (PROFILE.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(PROFILE.email)) err('profile.js: email looks invalid');
+[].concat(PROFILE.email || []).forEach((e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) || err(`profile.js: email "${e}" looks invalid`));
+if (PROFILE.x && !isHttp(PROFILE.x)) err('profile.js: x must be an http(s) URL');
 if (PROFILE.linkedin && !isHttp(PROFILE.linkedin)) err('profile.js: linkedin must be an http(s) URL');
 if (PROFILE.cv) {
   if (PROFILE.cv.startsWith('/')) err('profile.js: cv must be a relative path such as cv/Kevin-Manoti-CV.pdf');

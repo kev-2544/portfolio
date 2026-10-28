@@ -7,15 +7,17 @@
 
 window.PROFILE = {
   name: 'Kevin Manoti',
-  role: 'Software Engineer',
+  role: 'Full-Stack Software Engineer',
   location: 'Nairobi, Kenya',
   github: 'https://github.com/Manoty',
 
-  // Public contact email, e.g. 'name@example.com'. Hidden while empty.
-  email: '',
+  // Public contact email(s). One string, or a list; the first is the main button.
+  // Tip: one address looks cleaner to recruiters. Use [] or '' to hide.
+  email: ['manotikevin815@gmail.com', 'kevinnoty21@gmail.com'],
 
-  // Full profile URL, e.g. 'https://www.linkedin.com/in/your-handle/'. Hidden while empty.
+  // Full profile URLs. Hidden while empty.
   linkedin: '',
+  x: 'https://x.com/NotyKevs',
 
   // Path to your CV, relative to site/, e.g. 'cv/Kevin-Manoti-CV.pdf'.
   // While empty, the CV section shows a "request a copy" note instead of a download button.
