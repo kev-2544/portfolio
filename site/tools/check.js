@@ -22,7 +22,7 @@ for (const f of ['profile.js', 'projects.js', 'experience.js']) {
     err(`${f}: could not be parsed: ${e.message}`);
   }
 }
-const { PROJECTS = [], PROJECT_CATEGORIES = {}, EXPERIENCE = [], PROFILE = {} } = sandbox.window;
+const { PROJECTS = [], PROJECT_CATEGORIES = {}, EXPERIENCE = [], EDUCATION = [], CERTIFICATIONS = [], PROFILE = {} } = sandbox.window;
 
 const YM = /^\d{4}-(0[1-9]|1[0-2])$/;
 const isHttp = (u) => /^https?:\/\/\S+$/.test(u);
@@ -76,8 +76,27 @@ else {
     if (j.end && !YM.test(j.end)) err(`${where}: end must be YYYY-MM or null`);
     if (j.start && j.end && j.end < j.start) err(`${where}: end is before start`);
     if (j.url && !isHttp(j.url)) err(`${where}: url must be an http(s) URL`);
+    for (const k of ['responsibilities', 'achievements', 'stack']) {
+      if (j[k] && !Array.isArray(j[k])) err(`${where}: ${k} must be an array`);
+    }
   });
 }
+
+// ---------------------------------------------------------------- education + certifications
+const YEAR = /^\d{4}$/;
+const checkList = (name, items, required) => {
+  if (!Array.isArray(items)) return err(`experience.js: window.${name} must be an array`);
+  if (!items.length) warn(`experience.js: ${name} is empty; its column is hidden`);
+  items.forEach((e, i) => {
+    const where = `experience.js ${name} [${i}]`;
+    if (!e || typeof e !== 'object') return err(`${where}: entry is not an object`);
+    for (const k of required) if (!e[k]) err(`${where}: missing required field "${k}"`);
+    if (e.year && !YEAR.test(String(e.year))) err(`${where}: year must be four digits, e.g. '2024'`);
+    if (e.url && !isHttp(e.url)) err(`${where}: url must be an http(s) URL`);
+  });
+};
+checkList('EDUCATION', EDUCATION, ['degree', 'institution']);
+checkList('CERTIFICATIONS', CERTIFICATIONS, ['name', 'issuer']);
 
 // ---------------------------------------------------------------- profile
 if (!PROFILE.github) err('profile.js: github is required');
@@ -88,7 +107,7 @@ if (PROFILE.cv) {
   if (PROFILE.cv.startsWith('/')) err('profile.js: cv must be a relative path such as cv/Kevin-Manoti-CV.pdf');
   else if (!isHttp(PROFILE.cv) && !localFile(PROFILE.cv)) err(`profile.js: CV file not found: site/${PROFILE.cv}`);
 } else warn('profile.js: cv is empty; the CV section shows "available on request"');
-if (!PROFILE.email) warn('profile.js: email is empty; contact section shows GitHub only');
+if (![].concat(PROFILE.email || []).length) warn('profile.js: email is empty; contact section shows GitHub only');
 
 // ---------------------------------------------------------------- html
 // Root-relative links ("/x") break on a project site served from /<repo>/.
@@ -103,5 +122,5 @@ for (const f of ['index.html', 'project.html']) {
 // ---------------------------------------------------------------- report
 for (const w of warnings) console.log(`warn   ${w}`);
 for (const e of errors) console.log(`ERROR  ${e}`);
-console.log(`\n${PROJECTS.length} projects, ${EXPERIENCE.length || 0} experience entries: ${errors.length} error(s), ${warnings.length} warning(s).`);
+console.log(`\n${PROJECTS.length} projects, ${EXPERIENCE.length || 0} roles, ${EDUCATION.length || 0} education, ${CERTIFICATIONS.length || 0} certifications — ${errors.length} error(s), ${warnings.length} warning(s).`);
 process.exit(errors.length ? 1 : 0);
