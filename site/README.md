@@ -120,14 +120,31 @@ Open `experience.js` and add an entry inside `window.EXPERIENCE = [ ... ]`:
   start: '2025-01',                  // YYYY-MM
   end: null,                         // YYYY-MM, or null for "Present"
   description: 'One short paragraph.',
-  achievements: ['A concrete outcome you can stand behind'],
+  responsibilities: ['What the role involved'],
+  achievements: ['A measurable outcome you can back up'],   // optional
   stack: ['dbt', 'SQL', 'Python'],
 },
 ```
 
-Entries are sorted newest first. While the list is empty, the "Professional
-experience" column is hidden and only the "Selected projects" timeline (built
-from each project's `date`) is shown.
+Entries are sorted newest first. Leave out `location` or `type` to hide them.
+While the list is empty, the "Professional experience" column is hidden and only
+the "Selected personal projects" timeline (built from each project's `date`) is shown.
+
+## Education and certifications
+
+These live in `experience.js` too, below the roles:
+
+```js
+window.EDUCATION = [
+  { degree: 'Bachelor of Science in …', institution: 'University name', year: '2025' },
+];
+
+window.CERTIFICATIONS = [
+  { name: 'Certificate name', issuer: 'Issuer', year: '2024', url: 'https://…' },  // url optional
+];
+```
+
+Add a `url` only for a credential link you have checked. An empty list hides its column.
 
 ## Update the CV
 
