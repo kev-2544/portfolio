@@ -4,7 +4,7 @@ name: Deploy portfolio to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [master, main]
     paths: ['site/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 
