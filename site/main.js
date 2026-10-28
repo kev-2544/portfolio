@@ -226,6 +226,7 @@
 
     renderExperience();
     renderTimeline();
+    renderEducation();
     renderCv();
     renderContact();
   }
@@ -253,11 +254,34 @@
           <h4>${esc(j.title)} <span class="tl-org">· ${org}</span></h4>
           ${meta ? `<p class="tl-meta">${meta}</p>` : ''}
           ${j.description ? `<p>${esc(j.description)}</p>` : ''}
-          ${list(j.achievements).length ? `<ul class="points">${list(j.achievements).map((a) => `<li>${esc(a)}</li>`).join('')}</ul>` : ''}
+          ${[...list(j.responsibilities), ...list(j.achievements)].length
+            ? `<ul class="points">${[...list(j.responsibilities), ...list(j.achievements)].map((a) => `<li>${esc(a)}</li>`).join('')}</ul>`
+            : ''}
           ${tags(j.stack)}
         </li>`;
       })
       .join('');
+  }
+
+  function renderEducation() {
+    const edu = list(window.EDUCATION).filter((e) => e && e.degree);
+    const certs = list(window.CERTIFICATIONS).filter((c) => c && c.name);
+    if (!edu.length && !certs.length) {
+      $('#education').hidden = true;
+      return;
+    }
+    const row = (title, sub, year, url) => `
+      <li class="cred reveal">
+        <div>
+          <h4>${safeUrl(url) ? `<a href="${esc(safeUrl(url))}" target="_blank" rel="noopener">${esc(title)}</a>` : esc(title)}</h4>
+          ${sub ? `<p>${esc(sub)}</p>` : ''}
+        </div>
+        ${year ? `<span class="cred-year">${esc(year)}</span>` : ''}
+      </li>`;
+    $('#degrees').innerHTML = edu.map((e) => row(e.degree, e.institution, e.year, e.url)).join('');
+    $('#certs').innerHTML = certs.map((c) => row(c.name, c.issuer, c.year, c.url)).join('');
+    if (!edu.length) $('#degreesCol').hidden = true;
+    if (!certs.length) $('#certsCol').hidden = true;
   }
 
   function renderTimeline() {

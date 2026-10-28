@@ -7,7 +7,7 @@
 
 window.PROFILE = {
   name: 'Kevin Manoti',
-  role: 'Analytics Engineer & Backend Software Engineer',
+  role: 'Software Engineer',
   location: 'Nairobi, Kenya',
   github: 'https://github.com/Manoty',
 
